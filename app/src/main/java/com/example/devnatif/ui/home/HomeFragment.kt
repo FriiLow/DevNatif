@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.devnatif.MainActivity
+import com.example.devnatif.Note
 import com.example.devnatif.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -38,5 +41,16 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun creatNewNote(view: View?){
+        //écrire dans la console
+        println("click")
+        //toast
+        Toast.makeText(activity, "click", Toast.LENGTH_SHORT).show()
+        //init une nouvelle note avec pour titre la valeur du champ noteTitle
+        val note = Note(binding.noteTitle.text.toString(), "")
+        //ajoute la note à la liste
+        (activity as MainActivity).addNote (note)
     }
 }
