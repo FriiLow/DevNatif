@@ -1,12 +1,22 @@
 package com.example.devnatif.ui.dashboard
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.devnatif.MainActivity
+import com.example.devnatif.Note
+import com.example.devnatif.R
 import com.example.devnatif.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
@@ -27,6 +37,51 @@ class DashboardFragment : Fragment() {
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val dashNotes: ArrayList<Note> = (activity as MainActivity).notes
+
+        val parentLayout: LinearLayout = root.findViewById(R.id.noteContainerLayout);
+
+        dashNotes.forEach { note ->
+            val cardView = this.context?.let { CardView(it) }
+            val cardLayoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            cardLayoutParams.setMargins(5, 5, 5, 5)
+            if (cardView != null) {
+                cardView.layoutParams = cardLayoutParams
+                cardView.radius = resources.getDimension(R.dimen.cardCornerRadius)
+                cardView.cardElevation = resources.getDimension(R.dimen.cardElevation)
+            }
+
+            val imageView = ImageView(this.context)
+            val imageLayoutParams = LinearLayout.LayoutParams(
+                resources.getDimensionPixelSize(R.dimen.imageSize),
+                resources.getDimensionPixelSize(R.dimen.imageSize)
+            )
+            imageLayoutParams.setMargins(5, 5, 5, 5)
+            imageView.layoutParams = imageLayoutParams
+            imageView.elevation = resources.getDimension(R.dimen.imageElevation)
+            imageView.setImageResource(R.drawable.profil)
+
+            val textView = TextView(this.context)
+            val textLayoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            textView.layoutParams = textLayoutParams
+            textView.gravity = Gravity.CENTER
+            textView.setPadding(resources.getDimensionPixelSize(R.dimen.textPadding), resources.getDimensionPixelSize(R.dimen.textPaddingTop), 0, 0)
+            textView.text = note.getTitle()
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 23f)
+            textView.setTypeface(null, Typeface.BOLD)
+
+            if (cardView != null) {
+                cardView.addView(imageView)
+                cardView.addView(textView)
+            }
+            parentLayout.addView(cardView)
+        }
 
         val textView: TextView = binding.textDashboard
         dashboardViewModel.text.observe(viewLifecycleOwner) {

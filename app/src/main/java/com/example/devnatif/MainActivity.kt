@@ -15,6 +15,12 @@ class MainActivity : AppCompatActivity() {
     public var notes = ArrayList<Note>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        notes.add(Note("Titre 1", "Contenu 1"))
+        notes.add(Note("Titre 2", "Contenu 2"))
+        notes.add(Note("Titre 3", "Contenu 3"))
+        notes.add(Note("Titre 4", "Contenu 4"))
+        notes.add(Note("Titre 5", "Contenu 5"))
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
