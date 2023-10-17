@@ -7,21 +7,28 @@ class Note {
     private var title: String = ""
     private var content: String = ""
 
+    companion object {
+        private var lastId = 0
+    }
+
     //constructeur
     constructor(id: Int, title: String, content: String) {
         this.id = id
         this.title = title
         this.content = content
+        updateLastId(id)
     }
 
     //constructeur
     constructor(title: String, content: String) {
+        this.id = generateId()
         this.title = title
         this.content = content
     }
 
     //constructeur
     constructor() {
+        this.id = generateId()
     }
 
     //getter
@@ -40,6 +47,7 @@ class Note {
     //setter
     fun setId(id: Int) {
         this.id = id
+        updateLastId(id)
     }
 
     fun setTitle(title: String) {
@@ -50,5 +58,14 @@ class Note {
         this.content = content
     }
 
+    private fun generateId(): Int {
+        lastId++
+        return lastId
+    }
 
+    private fun updateLastId(id: Int) {
+        if (id > lastId) {
+            lastId = id
+        }
+    }
 }

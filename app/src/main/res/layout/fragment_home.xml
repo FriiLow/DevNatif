@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.238" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/newNoteButtonHome"
         android:layout_width="178dp"
         android:layout_height="60dp"
         android:text="Créer"
@@ -40,7 +40,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="309dp"
         android:layout_height="63dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/newNoteButtonHome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_home">
