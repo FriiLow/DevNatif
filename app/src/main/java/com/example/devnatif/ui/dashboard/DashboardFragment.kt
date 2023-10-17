@@ -18,6 +18,7 @@ import com.example.devnatif.MainActivity
 import com.example.devnatif.Note
 import com.example.devnatif.R
 import com.example.devnatif.databinding.FragmentDashboardBinding
+import com.example.devnatif.ui.Note.NoteFragment
 
 class DashboardFragment : Fragment() {
 
@@ -79,7 +80,18 @@ class DashboardFragment : Fragment() {
             if (cardView != null) {
                 cardView.addView(imageView)
                 cardView.addView(textView)
+                cardView.setOnClickListener {
+                    //bundle
+                    val bundle = Bundle()
+                    bundle.putString("title", note.getTitle())
+                    bundle.putString("content", note.getContent())
+                    bundle.putInt("id", note.getId())
+                    val fragmentToReplace = NoteFragment()
+                    fragmentToReplace.arguments = bundle
+                    replaceFragment(fragmentToReplace)
+                }
             }
+
             parentLayout.addView(cardView)
         }
 
@@ -88,6 +100,13 @@ class DashboardFragment : Fragment() {
             textView.text = it
         }
         return root
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        // Obtenez le gestionnaire de fragments
+        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, fragment)
+        fragmentTransaction.commit()
     }
 
     override fun onDestroyView() {
